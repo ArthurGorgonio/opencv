@@ -1,0 +1,7 @@
+version: '3.6'
+
+services:
+  opencv:
+    build: .
+    volumes:
+      - ./src:/app
