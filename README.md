@@ -6,18 +6,15 @@
 ## Technologies
 - Docker 18.09.3-ce
 - Opencv 4.0.1
-- Python 3.7.2-alpine
+- Python 3.7.2
 
 ---------------
-## Run this application
-### If you do not build the container
-'''sh
-docker-compose up -b
-'''
-or
-'''sh
-docker build -t <name> .
-'''
+## Docker Image
+The base image in dockerfile from python:3.7.2-alpine
+
+### Run this application
+- If you do not build the container ``` $ docker-compose up -b ```
+- If you already build the container ``` $ docker-compese up ```
 
 ---------------
 ## Libs in Python
