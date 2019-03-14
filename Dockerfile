@@ -71,7 +71,9 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
 
 WORKDIR /app
 
-COPY requirements.txt /app
+COPY data/ .
+
+COPY requirements.txt .
 
 RUN pip3 install --no-cache -r requirements.txt
 
