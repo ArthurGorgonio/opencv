@@ -9,6 +9,7 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
 @testing http://nl.alpinelinux.org/alpine/edge/testing\n\
 @community http://dl-cdn.alpinelinux.org/alpine/edge/community'\
   >> /etc/apk/repositories && \
+  apk upgrade && \
   apk add --update --no-cache \
   # --virtual .build-deps \
       build-base \
@@ -20,10 +21,10 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
       unzip \
       wget \
       #Intel® TBB, a widely used C++ template library for task parallelism'
-      libtbb@testing  \
-      libtbb-dev@testing   \
+      libtbb@testing \
+      libtbb-dev@testing \
       # Wrapper for libjpeg-turbo
-      libjpeg  \
+      libjpeg \
       # accelerated baseline JPEG compression and decompression library
       libjpeg-turbo-dev \
       # Portable Network Graphics library
@@ -71,12 +72,14 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
 
 WORKDIR /app
 
-COPY data/ .
-
 COPY requirements.txt .
 
-RUN pip3 install --no-cache -r requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY start.sh /
+
+RUN chmod +x /start.sh
 
 COPY src/ .
 
-CMD ["python3", "-u", "run.py"]
+CMD ["/bin/sh", "/start.sh"]
