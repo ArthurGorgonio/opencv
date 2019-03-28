@@ -2,7 +2,11 @@
 
 USR="arthur"
 DIR="samples"
-adduser $USR
+cat /etc/passwd | grep "$USR" > /dev/null
+if [[ $? -ne 0 ]]
+then
+  adduser $USR
+fi
 if [ -d "$DIR" ]
 then
   python3 run.py
