@@ -1,4 +1,7 @@
+import os
+
 import cv2
+import numpy as np
 
 
 def main():
@@ -11,24 +14,29 @@ def main():
 
         main()
     """
-    img = cv2.imread('samples/by5y3.png', 0)
+    path = 'samples/'
+    os.chdir(path)
+    name = '2cegf'
     status = 0
-    gauss = "./binary_gauss_"
-    thresh = "./binary_threshold_"
-    nogauss = "./binary_nogauss_threshold_"
     ext = ".png"
+    try:
+        img = cv2.imread(name + ext, 0)
+    except FileNotFoundError:
+        raise ("Path not exists")
+    img = cv2.GaussianBlur(img, (7, 7), 0)
+    #    kernel = np.array(([1, 2, 1], [2, 4, 2], [1, 2, 1]), np.float32) / 16
+    #    dst = cv2.filter2D(img, -1, kernel)
+    thr = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                cv2.THRESH_BINARY, 35, 2)
+    kernel = np.ones((3, 3), np.uint8)
+    dilate = cv2.dilate(thr, kernel, iterations=1)
+    erose = cv2.erode(dilate, kernel, iterations=1)
+    kernel = np.ones((3, 1), np.uint8)
+    dilate = cv2.dilate(erose, kernel, iterations=1)
+    x, y, w, h = 30, 12, 20, 38
 
-    for i in range(1, 11):
-        j = ((2 * i) - 1)
-        rev, thresh1 = cv2.threshold(img, 0, 255,
-                                     cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        status += cv2.imwrite(nogauss + str(i) + ext, thresh1)
-        img = cv2.GaussianBlur(img, (j, j), 0)
-        thresh1 = cv2.adaptiveThreshold(
-            img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 7, 2)
-        status += cv2.imwrite(gauss + str(i) + ext, thresh1)
-        rev, thresh1 = cv2.threshold(img, 0, 255,
-                                     cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        status += cv2.imwrite(thresh + str(i) + ext, thresh1)
-
+    for j in range(5):
+        img2 = cv2.rectangle(dilate, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        x += w
+    status += cv2.imwrite("../" + name + ext, img2)
     print("Image written to file-system : ", status)
