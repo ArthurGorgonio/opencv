@@ -16,27 +16,29 @@ def main():
     """
     path = 'samples/'
     os.chdir(path)
-    name = '2cegf'
+    names = os.listdir()
     status = 0
-    ext = ".png"
-    try:
-        img = cv2.imread(name + ext, 0)
-    except FileNotFoundError:
-        raise ("Path not exists")
-    img = cv2.GaussianBlur(img, (7, 7), 0)
+
     #    kernel = np.array(([1, 2, 1], [2, 4, 2], [1, 2, 1]), np.float32) / 16
     #    dst = cv2.filter2D(img, -1, kernel)
-    thr = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                cv2.THRESH_BINARY, 35, 2)
-    kernel = np.ones((3, 3), np.uint8)
-    dilate = cv2.dilate(thr, kernel, iterations=1)
-    erose = cv2.erode(dilate, kernel, iterations=1)
-    kernel = np.ones((3, 1), np.uint8)
-    dilate = cv2.dilate(erose, kernel, iterations=1)
-    x, y, w, h = 30, 12, 20, 38
 
-    for j in range(5):
-        img2 = cv2.rectangle(dilate, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        x += w
-    status += cv2.imwrite("../" + name + ext, img2)
+    for name in names:
+        try:
+            img = cv2.imread(name, 0)
+        except FileNotFoundError:
+            raise ("Path not exists")
+        img = cv2.GaussianBlur(img, (7, 7), 0)
+        thr = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                    cv2.THRESH_BINARY, 35, 2)
+        kernel = np.ones((3, 3), np.uint8)
+        dilate = cv2.dilate(thr, kernel, iterations=1)
+        erose = cv2.erode(dilate, kernel, iterations=1)
+        kernel = np.ones((3, 1), np.uint8)
+        dilate = cv2.dilate(erose, kernel, iterations=1)
+        x, y, w, h = 30, 12, 20, 38
+
+        for j in range(5):
+            img2 = cv2.rectangle(dilate, (x, y), (x + w, y + h), (127), 2)
+            x += w
+        status += cv2.imwrite("../" + name, img2)
     print("Image written to file-system : ", status)
