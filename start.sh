@@ -11,7 +11,7 @@ if [ -d "$DIR" ]
 then
   python3 run.py
   rm -r __pycache__
-  chown $USR:$USR ./*.png
+  chown $USR:$USR ./*.jpg
 else
   echo "Dir $DIR not found!"
   exit 1

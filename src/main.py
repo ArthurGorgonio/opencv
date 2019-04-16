@@ -18,7 +18,6 @@ def main():
     os.chdir(path)
     names = os.listdir()
     status = 0
-
     #    kernel = np.array(([1, 2, 1], [2, 4, 2], [1, 2, 1]), np.float32) / 16
     #    dst = cv2.filter2D(img, -1, kernel)
 
@@ -35,10 +34,5 @@ def main():
         erose = cv2.erode(dilate, kernel, iterations=1)
         kernel = np.ones((3, 1), np.uint8)
         dilate = cv2.dilate(erose, kernel, iterations=1)
-        x, y, w, h = 30, 12, 20, 38
-
-        for j in range(5):
-            img2 = cv2.rectangle(dilate, (x, y), (x + w, y + h), (127), 2)
-            x += w
-        status += cv2.imwrite("../" + name, img2)
+        status += cv2.imwrite("../" + name, dilate)
     print("Image written to file-system : ", status)
