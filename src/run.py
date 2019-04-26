@@ -1,13 +1,11 @@
 import os
 import sys
 
-import main
+import preprocessing
 
 if __name__ == "__main__":
     path = '.'
 
-    if "main.py" in os.listdir(path):
-        main.main()
-    else:
+    if "preprocessing.py" not in os.listdir(path):
         print("File 'main.py' not exists")
         sys.exit(1)
