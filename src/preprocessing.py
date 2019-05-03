@@ -20,8 +20,8 @@ def readData(dataset="./base.csv"):
 
 # Split data into train and test
 def splitSamples(data):
-    samples = data.iloc[:, 0:(len(data) - 1)].values
-    target = data.iloc[:, len(data)].values
+    samples = data.iloc[:, 0:4095].values
+    target = data.iloc[:, 4096].values
 
     return samples, target
 
