@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import RepeatedStratifiedKFold, StratifiedKFold
 
 # from sklearn.preprocessing import StandardScaler
 
@@ -32,6 +32,13 @@ def crossValidation(k):
         return StratifiedKFold(n_splits=k)
     except ValueError:
         print("Please put a number > 2")
+
+
+def repeatCrossValidation(folds, repeats):
+    try:
+        return RepeatedStratifiedKFold(n_splits=folds, n_repeats=repeats)
+    except ValueError:
+        print("A least 2 folds and repeats!")
 
 
 # # Feature Scaling

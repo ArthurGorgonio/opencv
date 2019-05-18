@@ -5,6 +5,7 @@ import utils
 
 def main():
     folds = 10
+    repeats = 10
     n_classifiers = classifiers.len_classify()
     cm, acc = [], []
     result_cm, result_acc = [0] * folds, [0] * folds
