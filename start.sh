@@ -10,6 +10,7 @@ fi
 if [ -d "$DIR" ]
 then
   python3 run.py
+  chown $USR:$USR *.csv
   rm -r __pycache__
 else
   echo "Dir $DIR not found!"

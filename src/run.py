@@ -10,4 +10,5 @@ if __name__ == "__main__":
         print("File 'main.py' not exists")
         sys.exit(1)
     else:
-        main.main()
+        main.mainEnsemble()
+        print("Finish!!\n")

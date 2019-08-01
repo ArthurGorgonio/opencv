@@ -13,14 +13,15 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
   freetype-dev \
   gcc \
   musl-dev \
-  openblas-dev
-
+  openblas-dev && \
+  pip install --upgrade pip requests && \
+  pip install numpy Cython
 
 WORKDIR /app
 
 COPY requirements.txt /app/
 
-RUN pip3 install --no-cache -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY start.sh /
 
