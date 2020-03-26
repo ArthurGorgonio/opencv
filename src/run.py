@@ -2,6 +2,7 @@ import os
 import sys
 
 import main
+import clustering
 
 if __name__ == "__main__":
     path = '.'
@@ -10,5 +11,6 @@ if __name__ == "__main__":
         print("File 'main.py' not exists")
         sys.exit(1)
     else:
-        main.mainEnsemble()
+        print("Try to start main\n")
+        clustering.main()
         print("Finish!!\n")

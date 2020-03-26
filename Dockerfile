@@ -12,10 +12,13 @@ RUN echo -e '@edgunity http://nl.alpinelinux.org/alpine/edge/community\n\
   build-base \
   freetype-dev \
   gcc \
+  gfortran \
+  libgcc \
+  libgfortran \
   musl-dev \
-  openblas-dev && \
-  pip install --upgrade pip requests && \
-  pip install numpy Cython
+  openblas-dev \
+  python3-dev && \
+  pip install --upgrade pip requests
 
 WORKDIR /app
 

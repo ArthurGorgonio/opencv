@@ -5,7 +5,7 @@ from sklearn.model_selection import RepeatedStratifiedKFold, StratifiedKFold
 # from sklearn.preprocessing import StandardScaler
 
 
-def readData(dataset="./base.csv"):
+def readData(dataset="./p2_v1.csv"):
     """Read a csv file and load into a variable with pandas package
 
         Parameters
